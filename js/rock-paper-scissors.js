@@ -16,10 +16,6 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoiche) {
-	// humanChoice = getHumanChoice();
-	// computerChoiche = getComputerChoice();
-	console.log("DEBUG: human choice = " + humanChoice + " computerChoice = " + computerChoiche);
-
 	if(humanChoice === computerChoiche) {
 		console.log("It's a draw!");
 		if(humanChoice === "rock") {
@@ -73,16 +69,38 @@ function playRound(humanChoice, computerChoiche) {
 	}
 }
 
-let humanScore = 0;
-let computerScore = 0;
-let roundResult = playRound(getHumanChoice(), getComputerChoice());
+function playGame() {
+	const totalRounds = 5;
+	let humanScore = 0;
+	let computerScore = 0;
+	let roundResult;
 
-if(roundResult === "player") {
-	humanScore += 1;
-}
-else if(roundResult === "computer") {
-	computerScore += 1;
+	for(let i = 0; i < totalRounds; i++) {
+		roundResult = playRound(getHumanChoice(), getComputerChoice());
+
+		if(roundResult === "player") {
+			humanScore += 1;
+		}
+		else if(roundResult === "computer") {
+			computerScore += 1;
+		}
+
+		console.log("Your Score: " + humanScore);
+		console.log("Computer Score: " + computerScore);
+	}
+
+	console.log("Your final score is " + humanScore);
+	console.log("The computer final score is " + computerScore);
+
+	if(humanScore === computerScore) {
+		console.log("It was a draw!");
+	}
+	else if(humanScore > computerScore) {
+		console.log("You won!");
+	}
+	else{
+		console.log("You lost!")
+	}
 }
 
-console.log("Your Score: " + humanScore);
-console.log("Computer Score: " + computerScore);
+playGame();
