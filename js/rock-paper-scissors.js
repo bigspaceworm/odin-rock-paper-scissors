@@ -9,7 +9,13 @@ const WIN_TOTAL = 5;
 buttonChoice.forEach((button) => {
 	button.addEventListener("click", () => {
 		playRound(button.className, getComputerChoice());
-		endGame();
+		let winnerFound = endGame();
+		if(!winnerFound){
+			const winner = document.querySelector(".winner");
+			if(winner.textContent != ""){
+				updateWinner("");
+			}
+		}
 	});
 });
 
@@ -53,7 +59,7 @@ function updateCounter(hScore, pcScore, dScore){
 	const counterScore = document.querySelector("#results").querySelector(".score");
 
 	counterScore.textContent = "PLAYER: " + hScore + " | PC: " + pcScore + 
-	" | DRAWS: " + dScore;
+	" | DRAW: " + dScore;
 }
 
 function updateWinner(winner) {
@@ -137,11 +143,15 @@ function getWinner(){
 }
 
 function endGame(){
-	if(humanScore === 5 || computerScore === 5) {
+	if(humanScore === WIN_TOTAL || computerScore === WIN_TOTAL) {
 		updateWinner(getWinner());
 		humanScore = 0;
 		computerScore = 0;
 		drawScore = 0;
 		clearTextResults();
+		return true;
+	}
+	else {
+		return false;
 	}
 }
